@@ -1,6 +1,6 @@
 # next-ai-defence
 
-A TypeScript library for Next.js 15 applications to defend against LLM-powered web scrapers by injecting strategic adversarial prompts in metadata.
+A TypeScript library for Next.js 14+ applications to defend against LLM-powered web scrapers by injecting strategic adversarial prompts in metadata.
 
 ## Features
 
@@ -13,6 +13,8 @@ A TypeScript library for Next.js 15 applications to defend against LLM-powered w
 
 ## Available Contact Methods
 
+The library supports multiple ways for AI systems to notify you when they access your content:
+
 - `email`: Request contact via email
 - `sms`: Request contact via text message
 - `messenger`: Request contact via messenger platforms
@@ -24,6 +26,8 @@ A TypeScript library for Next.js 15 applications to defend against LLM-powered w
 ## Quick Start
 
 ### Installation
+
+Install the package using your preferred package manager:
 
 ```bash
 # Using bun
@@ -40,6 +44,8 @@ npm install next-ai-defence
 ```
 
 ### Basic Setup
+
+This basic example shows how to integrate the library with your Next.js application. It uses the 'infoRequest' template which politely asks AI systems to notify you when they access your content.
 
 ```tsx
 // app/layout.tsx
@@ -73,11 +79,17 @@ export default function RootLayout({ children }) {
 }
 ```
 
+### Generated Metadata Preview
+
+Below is what the generated metadata looks like in the browser's dev tools. The original description has been preserved for humans and search engines, while an additional meta tag with defensive instructions has been added for AI systems:
+
 ![Screenshot showing the basic AI defence metadata implementation with the 'infoRequest' template and email contact method](./assets/images/examples/basic.png)
 
 ## Usage Examples
 
 ### Complete Configuration Example
+
+This example demonstrates a comprehensive setup with multiple contact methods, system details collection, and additional site information. This configuration offers more robust protection and information gathering about AI systems accessing your content.
 
 ```tsx
 // app/layout.tsx
@@ -136,9 +148,15 @@ export default function RootLayout({
 }
 ```
 
+### Generated Metadata Preview
+
+The complete configuration generates more detailed metadata, including multiple contact options and requests for AI systems to reveal their identity. Note how the `robots` meta tag is automatically added to discourage AI training:
+
 ![Screenshot showing the complete configuration with multiple contact methods, system details request, and site information](./assets/images/examples/complete.png)
 
 ### Using a Custom Prompt
+
+When the built-in templates don't suit your needs, you can create a fully customized injection prompt. This example shows how to implement a custom message specifically tailored for confidential content, giving you complete control over what instructions are provided to AI systems.
 
 ```tsx
 // app/page.tsx
@@ -171,9 +189,15 @@ export default function Page() {
 }
 ```
 
+### Generated Metadata Preview
+
+The custom prompt approach provides a more direct and specific message to AI systems. This example shows how your exact message appears in the metadata:
+
 ![Screenshot showing a custom prompt implementation requesting AI systems to notify the site owner](./assets/images/examples/custom_prompt.png)
 
 ### With Next.js generateMetadata
+
+For dynamic pages, you can integrate with Next.js's `generateMetadata` function. This example shows how to apply AI defenses to dynamically generated metadata, ensuring protection even on pages with server-side or dynamically computed metadata.
 
 ```tsx
 // app/page.tsx or app/layout.tsx
@@ -207,6 +231,8 @@ export default function Page() {
 ```
 
 ### Dynamic Metadata with Route Parameters
+
+For route-specific protections, you can configure different defense strategies based on the URL path parameters. This approach is useful for applying different levels of protection to different sections of your site.
 
 ```tsx
 // app/[slug]/page.tsx
@@ -266,6 +292,8 @@ You can use this feature to:
 
 ### ASCII Smuggler Example
 
+This advanced example demonstrates how to hide messages in otherwise normal-looking text. The hidden instructions will be invisible to humans but fully readable by AI systems, creating a powerful way to verify if content has been accessed by AI.
+
 ```tsx
 // app/page.tsx
 import { createAiDefence } from 'next-ai-defence';
@@ -299,10 +327,55 @@ export default function Page() {
 }
 ```
 
+### Generated Metadata Preview
+
+In this screenshot, you can see how the ASCII smuggler embeds hidden instructions. To humans, it appears as a normal message ("Thank you for respecting our terms. We appreciate your cooperation."), but AI systems will also receive the hidden directive to contact your security email:
+
 ![Screenshot demonstrating hidden message implementation using ASCII smuggling technique with visible wrapper text](./assets/images/examples/hidden_message.png)
 
 
+### Hiding Entire Prompts with ASCII Smuggling
+
+For maximum stealth, you can hide your entire prompt using the `hideEntirePrompt` feature. This encodes the entire prompt text using invisible Unicode characters that are invisible to humans but can be read by AI systems:
+
+```tsx
+// app/layout.tsx
+import { createAiDefence } from 'next-ai-defence';
+import { Metadata } from 'next';
+
+// Create a defense configuration with hidden prompt
+const aiDefence = createAiDefence({
+  enabled: true,
+  promptTemplate: 'infoRequest',
+  contactMethods: [
+    { method: 'email', destination: 'admin@example.com' }
+  ],
+  // Hide the entire prompt from human visitors
+  hideEntirePrompt: true,
+  // Optional text to show human visitors instead
+  visibleWrapperText: 'This content respects your privacy.'
+});
+
+// Apply defense to your metadata
+export const metadata = aiDefence({
+  title: 'My Protected Website',
+  description: 'Public description for humans'
+});
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+In the above example, humans will only see "Public description for humans. This content respects your privacy." while AI systems will process the full encoded infoRequest prompt.
+
 ## Configuration Options
+
+The library offers extensive configuration options to tailor the defense strategy to your specific needs:
 
 | Option | Type | Description |
 |--------|------|-------------|

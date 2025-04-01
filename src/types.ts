@@ -42,12 +42,14 @@ export interface AiDefenceOptions {
   useCustomPrompt?: boolean;
   customPrompt?: string;
   promptTemplate?: string;
-  contactMethods: ContactConfig[]; // Make it required and consistent
+  contactMethods: ContactConfig[];
   revealSystemDetails?: boolean;
   debugMode?: boolean;
   siteInfo?: SiteInfo;
   additionalMetadata?: Record<string, string>;
   asciiSmuggler?: AsciiSmugglerOptions;
+  hideEntirePrompt?: boolean;
+  visibleWrapperText?: string;
 }
 
 export interface GenerateDefenceMetadataOptions extends AiDefenceOptions {

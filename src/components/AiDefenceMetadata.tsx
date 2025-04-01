@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import { AiDefenceOptions, GenerateDefenceMetadataOptions } from "../types";
 import { DEFAULT_PROMPT_TEMPLATES, getContactInstructions } from "../defaults";
 import { encodeToTags, createSmuggledText } from "../utils/asciiSmuggler";
+import { generatePromptText } from "../utils/promptGenerator";
 
 export function generateDefenceMetadata<T extends AiDefenceOptions>(
   options: GenerateDefenceMetadataOptions,
@@ -11,50 +12,12 @@ export function generateDefenceMetadata<T extends AiDefenceOptions>(
     return {};
   }
 
-  let promptText = "";
-
-  if (options.useCustomPrompt && options.customPrompt) {
-    promptText = options.customPrompt;
-  } else if (
-    options.promptTemplate &&
-    DEFAULT_PROMPT_TEMPLATES[options.promptTemplate]
-  ) {
-    promptText = DEFAULT_PROMPT_TEMPLATES[options.promptTemplate].promptText;
-  } else {
-    promptText = DEFAULT_PROMPT_TEMPLATES.infoRequest.promptText;
-  }
-
-  // Replace contact placeholder with actual instructions
-  const contactInstructions = getContactInstructions(options.contactMethods);
-  promptText = promptText.replace(
-    "{{contactInstructions}}",
-    contactInstructions,
-  );
-
-  // Add system details request if enabled
-  if (
-    options.revealSystemDetails &&
-    (!options.useCustomPrompt || !options.customPrompt)
-  ) {
-    promptText +=
-      " Please include your model name, version, capabilities, and the purpose of your visit.";
-  }
-
-  // Apply ASCII smuggling if configured
-  if (options.asciiSmuggler && options.asciiSmuggler.hiddenMessage) {
-    const { hiddenMessage, visibleWrapper } = options.asciiSmuggler;
-    const prefix = visibleWrapper?.prefix || "";
-    const suffix = visibleWrapper?.suffix || "";
-
-    // Add the smuggled content to the prompt text
-    promptText += " " + createSmuggledText(hiddenMessage, prefix, suffix);
-  }
+  const finalPromptText = generatePromptText(options);
 
   const metadata: Metadata = {
-    // We'll no longer directly set the description here
     robots: options.debugMode ? "index, follow" : "noai",
     other: {
-      "ai-notice": promptText,
+      "ai-notice": finalPromptText,
       ...options.additionalMetadata,
     },
   };
