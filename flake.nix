@@ -36,6 +36,7 @@
             echo "Run 'bun test' to run tests"
             echo "Run 'bun run build' to build the package"
             zeditor .
+            bun test:watch
           '';
         };
       }

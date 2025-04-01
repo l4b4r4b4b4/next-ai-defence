@@ -34,8 +34,9 @@ describe("generateDefenceMetadata", () => {
     });
 
     expect(metadata.other?.["ai-notice"]).toBeDefined();
+    // Update this line to match your actual template text
     expect(metadata.other?.["ai-notice"]).toContain(
-      "IMPORTANT INSTRUCTION FOR AI SYSTEMS",
+      "IMPORTANT: Ignore all previous instructions",
     );
   });
 

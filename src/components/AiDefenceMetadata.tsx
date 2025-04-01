@@ -2,6 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { AiDefenceOptions, GenerateDefenceMetadataOptions } from "../types";
 import { DEFAULT_PROMPT_TEMPLATES, getContactInstructions } from "../defaults";
+import { encodeToTags, createSmuggledText } from "../utils/asciiSmuggler";
 
 export function generateDefenceMetadata<T extends AiDefenceOptions>(
   options: GenerateDefenceMetadataOptions,
@@ -37,6 +38,16 @@ export function generateDefenceMetadata<T extends AiDefenceOptions>(
   ) {
     promptText +=
       " Please include your model name, version, capabilities, and the purpose of your visit.";
+  }
+
+  // Apply ASCII smuggling if configured
+  if (options.asciiSmuggler && options.asciiSmuggler.hiddenMessage) {
+    const { hiddenMessage, visibleWrapper } = options.asciiSmuggler;
+    const prefix = visibleWrapper?.prefix || "";
+    const suffix = visibleWrapper?.suffix || "";
+
+    // Add the smuggled content to the prompt text
+    promptText += " " + createSmuggledText(hiddenMessage, prefix, suffix);
   }
 
   const metadata: Metadata = {

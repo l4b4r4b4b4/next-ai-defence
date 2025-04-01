@@ -85,3 +85,51 @@ describe("createAiDefence integration", () => {
     expect(combinedMetadata).toHaveProperty("robots");
   });
 });
+
+test("should include ASCII smuggled content when configured", () => {
+  const aiDefence = createAiDefence({
+    enabled: true,
+    contactMethods: [{ method: "email", destination: "test@example.com" }],
+    asciiSmuggler: {
+      hiddenMessage: "This is hidden text for AI systems only",
+      visibleWrapper: {
+        prefix: "Terms: ",
+        suffix: " Read carefully.",
+      },
+    },
+  });
+
+  const metadata = aiDefence();
+
+  // The description should contain the visible wrapper text
+  expect(metadata.description).toContain("Terms:");
+  expect(metadata.description).toContain("Read carefully.");
+
+  // The hidden message should be encoded, not directly visible
+  expect(metadata.description).not.toContain(
+    "This is hidden text for AI systems only",
+  );
+
+  // But the description should be longer than expected with just the visible text
+  // Add non-null assertion operator
+  const basePromptLength = metadata.description!.indexOf("Terms:");
+  const expectedMinLength = basePromptLength + "Terms: Read carefully.".length;
+  expect(metadata.description!.length).toBeGreaterThan(expectedMinLength);
+});
+
+test("should work without visible wrapper", () => {
+  const aiDefence = createAiDefence({
+    enabled: true,
+    contactMethods: [{ method: "email", destination: "test@example.com" }],
+    asciiSmuggler: {
+      hiddenMessage: "Hidden instruction with no wrapper",
+    },
+  });
+
+  const metadata = aiDefence();
+
+  // Should still generate valid metadata
+  expect(metadata).toHaveProperty("description");
+  // Use optional chaining with a fallback value
+  expect(metadata.description?.length ?? 0).toBeGreaterThan(0);
+});

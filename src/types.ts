@@ -1,3 +1,17 @@
+export interface SiteInfo {
+  name?: string;
+  owner?: string;
+  domain?: string;
+}
+
+export interface PromptTemplate {
+  id: string;
+  name: string;
+  description: string;
+  promptText: string;
+}
+
+// Fixed type definitions with consistent modifiers
 export type ContactMethod =
   | "email"
   | "sms"
@@ -7,35 +21,35 @@ export type ContactMethod =
   | "webhook"
   | "custom";
 
-export type ContactConfig = {
+export interface ContactConfig {
   method: ContactMethod;
   destination: string;
   customHeaders?: Record<string, string>;
-  additionalInfo?: Record<string, string>;
+  additionalInfo?: Record<string, string | number | boolean>;
+}
+
+export type AsciiSmugglerOptions = {
+  hiddenMessage: string;
+  visibleWrapper?: {
+    prefix?: string;
+    suffix?: string;
+  };
 };
 
-export type PromptTemplate = {
-  id: string;
-  name: string;
-  description: string;
-  promptText: string;
-};
-
-export interface AiDefenceOptions<T extends ContactMethod = ContactMethod> {
+// The main options type - make contactMethods consistent
+export interface AiDefenceOptions {
   enabled?: boolean;
   useCustomPrompt?: boolean;
   customPrompt?: string;
   promptTemplate?: string;
-  contactMethods: Array<ContactConfig & { method: T }>;
+  contactMethods: ContactConfig[]; // Make it required and consistent
   revealSystemDetails?: boolean;
-  additionalMetadata?: Record<string, string>;
   debugMode?: boolean;
+  siteInfo?: SiteInfo;
+  additionalMetadata?: Record<string, string>;
+  asciiSmuggler?: AsciiSmugglerOptions;
 }
 
 export interface GenerateDefenceMetadataOptions extends AiDefenceOptions {
-  siteInfo?: {
-    name: string;
-    owner?: string;
-    domain: string;
-  };
+  // Any additional options specific to metadata generation
 }
