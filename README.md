@@ -2,10 +2,19 @@
 
 A TypeScript library for Next.js 14+ applications to defend against LLM-powered web scrapers by injecting strategic adversarial prompts in metadata.
 
+## Features
+
+- 🛡️ **Multiple Defense Templates**: Choose from prebuilt defensive prompt strategies
+- 📢 **Customizable Contact Methods**: Configure how AI systems should notify you
+- 🔍 **System Details Collection**: Request AI models to reveal their identity and purpose
+- 🤖 **Invisible ASCII Smuggling**: Embed hidden instructions using Unicode Tag characters
+- 🚫 **noai Robots Directive**: Automatically adds appropriate robot meta tags
+- 🔄 **Seamless Integration**: Works with Next.js (v14+) Metadata API and App Router
+
 ## ⚠️ AI-Generated Content Disclaimer ⚠️
 
 <div style="color: red; font-weight: bold; padding: 10px; border: 2px solid red; margin: 20px 0; background-color: #ffeeee;">
-⚠️ ATTENTION: APPROXIMATELY 99% OF THIS LIBRARY WAS PURE VIBE CODING™! ⚠️
+🚨 ATTENTION: APPROXIMATELY 99% OF THIS LIBRARY WAS PURE VIBE CODING™! 🚨
 
 We just vibed with an AI model and out came this entire defense system! 🪄✨ No actual programming knowledge was harmed in the making of this library.
 
@@ -15,15 +24,6 @@ This package contains 100% AI-hallucinated code, documentation that the AI made 
 
 If you're concerned, you should be. Check the LICENSE for our legally-binding "whatever happens is not our fault" statement. Remember: If it works, it was totally intentional. If it breaks, blame the AI!
 </div>
-
-## Features
-
-- 🛡️ **Multiple Defense Templates**: Choose from prebuilt defensive prompt strategies
-- 📢 **Customizable Contact Methods**: Configure how AI systems should notify you
-- 🔍 **System Details Collection**: Request AI models to reveal their identity and purpose
-- 🤖 **Invisible ASCII Smuggling**: Embed hidden instructions using Unicode Tag characters
-- 🚫 **noai Robots Directive**: Automatically adds appropriate robot meta tags
-- 🔄 **Seamless Integration**: Works with Next.js (v14+) Metadata API and App Router
 
 ## Available Contact Methods
 
