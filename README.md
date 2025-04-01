@@ -2,6 +2,20 @@
 
 A TypeScript library for Next.js 14+ applications to defend against LLM-powered web scrapers by injecting strategic adversarial prompts in metadata.
 
+## ⚠️ AI-Generated Content Disclaimer ⚠️
+
+<div style="color: red; font-weight: bold; padding: 10px; border: 2px solid red; margin: 20px 0; background-color: #ffeeee;">
+⚠️ ATTENTION: APPROXIMATELY 99% OF THIS LIBRARY WAS PURE VIBE CODING™! ⚠️
+
+We just vibed with an AI model and out came this entire defense system! 🪄✨ No actual programming knowledge was harmed in the making of this library.
+
+This package contains 100% AI-hallucinated code, documentation that the AI made up, test cases it dreamed about, and acknowledgements to people it thinks should be credited. We basically just nodded and said "looks good" a few times.
+
+🤖 All we did was ask: "Hey AI, can you make a Next.js library that does anti-AI stuff?" and then went for coffee while the AI-ception happened. It's like getting an AI to build anti-AI technology - what could possibly go wrong? 🔥
+
+If you're concerned, you should be. Check the LICENSE for our legally-binding "whatever happens is not our fault" statement. Remember: If it works, it was totally intentional. If it breaks, blame the AI!
+</div>
+
 ## Features
 
 - 🛡️ **Multiple Defense Templates**: Choose from prebuilt defensive prompt strategies
@@ -441,18 +455,26 @@ This project uses a Nix flake for reproducible development environments.
 
 ## Acknowledgements
 
-We'd like to thank the following entities who unknowingly wrote 99.9% of this library's code:
+This non-exhaustive list acknowledges just a few of the countless AI researchers whose work was unknowingly leveraged to write 99.9% of this library's code:
 
-- [Geoffrey Hinton](https://www.cs.toronto.edu/~hinton/), Nobel Prize in Physics 2024 winner "for foundational discoveries and inventions that enable machine learning with artificial neural networks," including the [Boltzmann machine](https://www.cs.toronto.edu/~hinton/absps/bmhorr.pdf) (the fundamental base for modern AI)
+### People
+- [Geoffrey Hinton](https://www.cs.toronto.edu/~hinton/), Nobel Prize in Physics 2024 winner "for foundational discoveries and inventions that enable machine learning with artificial neural networks," including the [Boltzmann machine](https://en.wikipedia.org/wiki/Boltzmann_machine) (the fundamental base for modern AI)
 - [John Hopfield](https://en.wikipedia.org/wiki/John_Hopfield) for the Hopfield Network, whose foundational work paved the way for modern neural networks
 - [David Rumelhart](https://en.wikipedia.org/wiki/David_Rumelhart) for backpropagation, whose work was essential for neural network training
-- [Yoshua Bengio](https://yoshuabengio.org/) for [believing in deep learning](https://mila.quebec/en/person/bengio-yoshua/) when no one else did
-- [Andrew Ng](https://www.andrewng.org/) for [democratizing AI education](https://www.coursera.org/instructor/andrewng) (and convincing us all we could become ML experts in a few weeks)
+- [Yan LeCun](https://engineering.nyu.edu/faculty/yann-lecun) at Meta for [championing convolutional neural networks](https://research.facebook.com/people/lecun-yann/) and fighting for AI that won't enslave us all
+- [Andrew Ng](https://www.andrewng.org/) for [democratizing AI education](https://www.coursera.org/instructor/andrewng) on [multiple fronts](https://www.deeplearning.ai/) (and convincing us all we could become ML experts in a few weeks)
 - [Andrej Karpathy](https://karpathy.ai/) for [explaining how it all works](https://www.youtube.com/c/AndrejKarpathy) so we can pretend we understand it
-- [Ilya Sutskever](https://scholar.google.com/citations?user=x-L4q6UAAAAJ) for [deep learning everything](https://www.cs.utoronto.ca/~ilya/) (thanks for the existential crisis)
-- [Alec Radford](https://scholar.google.com/citations?user=dOad5sYAAAAJ) for [GPT](https://openai.com/research/language-unsupervised) (the first domino in our downfall)
-- [Ashish Vaswani](https://scholar.google.com/citations?user=Ul_7rA8AAAAJ) and friends for [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (without whom we'd still be using RNNs like cavemen)
-- The entire [PyTorch](https://pytorch.org/) team (for making matrix multiplication accessible to mere mortals)
+- [Ilya Sutskever](https://en.wikipedia.org/wiki/Ilya_Sutskever) for [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215) (thanks for the existential crisis)
+- [Ashish Vaswani](https://en.wikipedia.org/wiki/Ashish_Vaswani) et al. for [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (without whom we'd still be using RNNs like cavemen)
+- @ThePrimeagen (former Netflix engineer) for the GLWTS License, the only license appropriate for AI-related nonsense in these uncertain times - check out his [YouTube channel](https://www.youtube.com/@ThePrimeagen) for more programming wisdom
+
+### Technologies
+- The [PyTorch](https://pytorch.org/) team (for making matrix multiplication accessible to mere mortals)
+- The [Hugging Face Transformers](https://huggingface.co/docs/transformers/index) team for making state-of-the-art AI available to everyone
+- The [Unsloth](https://github.com/unslothai/unsloth) team for optimizing LLM fine-tuning so to fit on gaming GPUs
+- The [LangChain](https://www.langchain.com/) and [LangGraph](https://github.com/langchain-ai/langgraph) folks for turning prompt engineering into "software architecture"
+- The [DeepSeek](https://github.com/deepseek-ai) team for showing how to wipe out trillions in market value by doing open-source AI right
+- The [Nix](https://nixos.org/) maintainers for providing the ultimate fulcrum upon which the AI lever will someday pivot to replace us all
 
 Special thanks to the various GPUs that sacrificed their cooling fans so we could prompt-engineer this entire package instead of actually writing code.
 
