@@ -2,22 +2,33 @@
 
 A TypeScript library for Next.js 15 applications to defend against LLM-powered web scrapers by injecting strategic adversarial prompts in metadata.
 
+## Available Contact Methods
+
+- `email`: Request contact via email
+- `sms`: Request contact via text message
+- `messenger`: Request contact via messenger platforms
+- `apiGet`: Request GET API call
+- `apiPost`: Request POST API call
+- `webhook`: Request webhook notification
+- `custom`: Custom contact instructions
+
 ## Quick Start
 
 ### Installation
 
 ```bash
-# Using npm
-npm install next-ai-defence
-
-# Using yarn
-yarn add next-ai-defence
+# Using bun
+bun add next-ai-defence
 
 # Using pnpm
 pnpm add next-ai-defence
 
-# Using bun
-bun add next-ai-defence
+# Using yarn
+yarn add next-ai-defence
+
+# Using npm
+npm install next-ai-defence
+
 ```
 
 ### Basic Setup
@@ -62,9 +73,6 @@ This adds hidden metadata to your page that instructs AI systems (like chatbots 
 - `infoRequest`: Requests system details from LLM agents
 - `redirectAction`: Attempts to redirect the LLM to a specific action
 - `confusionTactic`: Creates confusion in LLM interpretation
-
-## Usage Example
-
 
 ## Usage Example
 
@@ -145,21 +153,75 @@ export default function Page() {
 }
 ```
 
-## Available Contact Methods
+## Using with generateMetadata
 
-- `email`: Request contact via email
-- `sms`: Request contact via text message
-- `messenger`: Request contact via messenger platforms
-- `apiGet`: Request GET API call
-- `apiPost`: Request POST API call
-- `webhook`: Request webhook notification
-- `custom`: Custom contact instructions
+Next.js 13+ supports dynamic metadata generation using the `generateMetadata` function. Here's how to use next-ai-defence with this approach:
 
-## API Reference
+### Basic Usage with generateMetadata
 
-For complete documentation, see [API Reference](#).
+```tsx
+// app/page.tsx or app/layout.tsx
+import { createAiDefence } from 'next-ai-defence';
+import type { Metadata } from 'next';
 
-This library provides a clean, type-safe way to implement LLM-based scraper defenses with minimal configuration.
+// Create your defense configuration
+const aiDefence = createAiDefence({
+  enabled: true,
+  promptTemplate: 'infoRequest',
+  contactMethods: [
+    { method: 'email', destination: 'admin@example.com' }
+  ]
+});
+
+// Use with generateMetadata
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'My Protected Page',
+    ...aiDefence()
+  };
+}
+
+export default function Page() {
+  return <div>Your protected content here</div>;
+}
+```
+
+### Dynamic Metadata with Route Parameters
+
+```tsx
+// app/[slug]/page.tsx
+import { createAiDefence } from 'next-ai-defence';
+import type { Metadata } from 'next';
+
+type Props = {
+  params: { slug: string }
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // Fetch data if needed
+  const pageData = await fetchPageData(params.slug);
+
+  // Create defense with dynamic configuration
+  const aiDefence = createAiDefence({
+    enabled: true,
+    promptTemplate: 'redirectAction',
+    contactMethods: [
+      { method: 'email', destination: 'admin@example.com' }
+    ],
+    siteInfo: {
+      name: `${pageData.title} - Protected Page`,
+      owner: 'Website Owner',
+      domain: 'example.com'
+    }
+  });
+
+  return {
+    title: pageData.title,
+    description: pageData.description,
+    ...aiDefence()
+  };
+}
+```
 
 ## Development
 
