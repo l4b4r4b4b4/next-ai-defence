@@ -2,6 +2,70 @@
 
 A TypeScript library for Next.js 15 applications to defend against LLM-powered web scrapers by injecting strategic adversarial prompts in metadata.
 
+## Quick Start
+
+### Installation
+
+```bash
+# Using npm
+npm install next-ai-defence
+
+# Using yarn
+yarn add next-ai-defence
+
+# Using pnpm
+pnpm add next-ai-defence
+
+# Using bun
+bun add next-ai-defence
+```
+
+### Basic Setup
+
+Add defense metadata to your Next.js layout or page:
+
+```tsx
+// app/layout.tsx
+import { Metadata } from 'next';
+import { createAiDefence } from 'next-ai-defence';
+
+// Create defense configuration
+const aiDefence = createAiDefence({
+  enabled: true,
+  promptTemplate: 'infoRequest', // Choose from predefined templates
+  contactMethods: [
+    { method: 'email', destination: 'admin@example.com' }
+  ]
+});
+
+// Add to your metadata
+export const metadata: Metadata = {
+  title: 'My Protected Website',
+  ...aiDefence()
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### What This Does
+
+This adds hidden metadata to your page that instructs AI systems (like chatbots browsing your site) to contact you via the specified methods before processing your content.
+
+### Available Templates
+
+- `infoRequest`: Requests system details from LLM agents
+- `redirectAction`: Attempts to redirect the LLM to a specific action
+- `confusionTactic`: Creates confusion in LLM interpretation
+
+## Usage Example
+
+
 ## Usage Example
 
 Here's how a Next.js developer would use your library:
@@ -80,6 +144,20 @@ export default function Page() {
   return <div>Protected content</div>;
 }
 ```
+
+## Available Contact Methods
+
+- `email`: Request contact via email
+- `sms`: Request contact via text message
+- `messenger`: Request contact via messenger platforms
+- `apiGet`: Request GET API call
+- `apiPost`: Request POST API call
+- `webhook`: Request webhook notification
+- `custom`: Custom contact instructions
+
+## API Reference
+
+For complete documentation, see [API Reference](#).
 
 This library provides a clean, type-safe way to implement LLM-based scraper defenses with minimal configuration.
 
