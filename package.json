@@ -6,6 +6,11 @@
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "homepage": "https://github.com/l4b4r4b4b4/next-ai-defence",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l4b4r4b4b4/next-ai-defence.git"
+  },
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist --target node --format esm",
     "typegen": "tsc --emitDeclarationOnly --outDir dist",
