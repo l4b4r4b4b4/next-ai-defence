@@ -108,4 +108,29 @@ describe("Metadata generation integration", () => {
     expect(metadata.other).toHaveProperty("ai-mode", "defensive");
     expect(metadata.other).toHaveProperty("content-protection", "enabled");
   });
+
+  test("should properly append to existing description", () => {
+    const aiDefence = createAiDefence({
+      enabled: true,
+      promptTemplate: "infoRequest",
+      contactMethods: [{ method: "email", destination: "admin@example.com" }],
+    });
+
+    // Simulate existing metadata
+    const existingMetadata = {
+      title: "Original Title",
+      description: "Original description text",
+    };
+
+    const combinedMetadata = aiDefence(existingMetadata);
+
+    // Check that original content is preserved
+    expect(combinedMetadata.title).toBe("Original Title");
+    expect(combinedMetadata.description).toContain("Original description text");
+
+    // Check that our content is appended
+    expect(combinedMetadata.description).toContain("---");
+    expect(combinedMetadata.description).toContain("IMPORTANT");
+    expect(combinedMetadata.description).toContain("admin@example.com");
+  });
 });

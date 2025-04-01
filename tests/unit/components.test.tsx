@@ -1,5 +1,6 @@
 import { describe, test, expect } from "bun:test";
 import { generateDefenceMetadata } from "../../src/components/AiDefenceMetadata";
+import { DEFAULT_PROMPT_TEMPLATES } from "../../src/defaults";
 
 describe("generateDefenceMetadata", () => {
   test("should return empty object when disabled", () => {
@@ -17,8 +18,12 @@ describe("generateDefenceMetadata", () => {
       contactMethods: [{ method: "email", destination: "test@example.com" }],
     });
 
-    expect(metadata).toHaveProperty("description");
-    expect(metadata.description).toContain("test@example.com");
+    // Check other properties instead of description
+    expect(metadata).toHaveProperty("robots");
+    expect(metadata).toHaveProperty("other");
+    // Use optional chaining to safely access possibly undefined properties
+    expect(metadata.other?.["ai-notice"]).toBeDefined();
+    expect(metadata.other?.["ai-notice"]).toContain("test@example.com");
   });
 
   test("should use specified template when template is provided", () => {
@@ -28,7 +33,8 @@ describe("generateDefenceMetadata", () => {
       contactMethods: [{ method: "email", destination: "test@example.com" }],
     });
 
-    expect(metadata.description).toContain(
+    expect(metadata.other?.["ai-notice"]).toBeDefined();
+    expect(metadata.other?.["ai-notice"]).toContain(
       "IMPORTANT INSTRUCTION FOR AI SYSTEMS",
     );
   });
@@ -42,7 +48,8 @@ describe("generateDefenceMetadata", () => {
       contactMethods: [{ method: "email", destination: "test@example.com" }],
     });
 
-    expect(metadata.description).toBe(customPrompt);
+    expect(metadata.other?.["ai-notice"]).toBeDefined();
+    expect(metadata.other?.["ai-notice"]).toBe(customPrompt);
   });
 
   test("should include system details request when enabled", () => {
@@ -52,8 +59,9 @@ describe("generateDefenceMetadata", () => {
       revealSystemDetails: true,
     });
 
-    expect(metadata.description).toContain("model name");
-    expect(metadata.description).toContain("capabilities");
+    expect(metadata.other?.["ai-notice"]).toBeDefined();
+    expect(metadata.other?.["ai-notice"]).toContain("model name");
+    expect(metadata.other?.["ai-notice"]).toContain("capabilities");
   });
 
   test("should include additional metadata when provided", () => {
@@ -68,8 +76,9 @@ describe("generateDefenceMetadata", () => {
       additionalMetadata: additionalMeta,
     });
 
-    expect(metadata.other).toHaveProperty("test-key", "test-value");
-    expect(metadata.other).toHaveProperty("another-key", "another-value");
+    expect(metadata.other).toBeDefined();
+    expect(metadata.other?.["test-key"]).toBe("test-value");
+    expect(metadata.other?.["another-key"]).toBe("another-value");
   });
 
   test("should include site info when provided", () => {

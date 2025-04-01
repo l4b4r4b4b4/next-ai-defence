@@ -40,7 +40,7 @@ export function generateDefenceMetadata<T extends AiDefenceOptions>(
   }
 
   const metadata: Metadata = {
-    description: promptText,
+    // We'll no longer directly set the description here
     robots: options.debugMode ? "index, follow" : "noai",
     other: {
       "ai-notice": promptText,

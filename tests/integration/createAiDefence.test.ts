@@ -1,5 +1,6 @@
 import { describe, test, expect } from "bun:test";
 import { createAiDefence } from "../../src";
+import { Metadata } from "next";
 
 describe("createAiDefence integration", () => {
   test("should return a function", () => {
@@ -50,15 +51,37 @@ describe("createAiDefence integration", () => {
       contactMethods: [{ method: "email", destination: "test@example.com" }],
     });
 
-    // Simulate how users would combine with their own metadata
-    const combinedMetadata = {
+    // Create existing metadata
+    const existingMetadata: Metadata = {
       title: "My Page Title",
       description: "My original description",
-      ...aiDefence(), // This should override the description
     };
 
+    // Pass the existing metadata to the aiDefence function
+    const combinedMetadata = aiDefence(existingMetadata);
+
     expect(combinedMetadata.title).toBe("My Page Title");
-    expect(combinedMetadata.description).not.toBe("My original description");
+    expect(combinedMetadata.description).toContain("My original description");
+    expect(combinedMetadata.description).toContain("---"); // Check for the separator
+    expect(combinedMetadata).toHaveProperty("robots");
+  });
+
+  test("should handle case with no existing description", () => {
+    const aiDefence = createAiDefence({
+      enabled: true,
+      contactMethods: [{ method: "email", destination: "test@example.com" }],
+    });
+
+    // Create existing metadata without a description
+    const existingMetadata: Metadata = {
+      title: "My Page Title",
+    };
+
+    // Pass the existing metadata to the aiDefence function
+    const combinedMetadata = aiDefence(existingMetadata);
+
+    expect(combinedMetadata.title).toBe("My Page Title");
+    expect(combinedMetadata.description).not.toContain("---"); // No separator needed
     expect(combinedMetadata).toHaveProperty("robots");
   });
 });

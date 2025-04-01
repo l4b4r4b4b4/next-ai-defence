@@ -1,7 +1,7 @@
 {
   "name": "next-ai-defence",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.4-rc.1",
   "description": "Defend against LLM-based web scrapers in Next.js applications",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,7 +14,7 @@
   "scripts": {
     "build": "bun build ./src/index.ts --outdir ./dist --target node --format esm",
     "typegen": "tsc --emitDeclarationOnly --outDir dist",
-    "prepublishOnly": "bun run build && bun run typegen",
+    "prepublishOnly": "bun test && bun run build && bun run typegen",
     "test": "bun test",
     "test:watch": "bun test --watch"
   },
