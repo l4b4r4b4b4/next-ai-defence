@@ -21,7 +21,7 @@ Currently no emoji support.
 
 We just vibed with an AI model and out came this entire defense system! 🪄✨ No actual programming knowledge was harmed in the making of this library.
 
-This package contains 100% AI-hallucinated code, documentation that the AI made up, test cases it dreamed about, and acknowledgements to people it thinks should be credited. We basically just nodded and said "looks good" a few times.
+This package contains approx. 99% AI-hallucinated code, documentation that the AI made up, test cases it dreamed about, and acknowledgements to people it thinks should be credited. We basically just nodded and said "looks good" a few times.
 
 🤖 All we did was ask: "Hey AI, can you make a Next.js library that does anti-AI stuff?" and then went for coffee while the AI-ception happened. It's like getting an AI to build anti-AI technology - what could possibly go wrong? 🔥
 
