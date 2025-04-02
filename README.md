@@ -11,6 +11,9 @@ A TypeScript library for Next.js 14+ applications to defend against LLM-powered 
 - 🚫 **noai Robots Directive**: Automatically adds appropriate robot meta tags
 - 🔄 **Seamless Integration**: Works with Next.js (v14+) Metadata API and App Router
 
+## Limitations
+Currently no emoji support.
+
 ## ⚠️ AI-Generated Content Disclaimer ⚠️
 
 <div style="color: red; font-weight: bold; padding: 10px; border: 2px solid red; margin: 20px 0; background-color: #ffeeee;">
